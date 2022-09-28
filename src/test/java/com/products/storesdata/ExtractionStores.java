@@ -105,7 +105,7 @@ public class ExtractionStores {
     @Test
     public void test008() {
 
-        List<HashMap<String,?>> Storeaddress =  response.extract().path("data.findAll{it.name=='Rochester'}");
+        List<String> Storeaddress =  response.extract().path("data.findAll{it.name=='Rochester'}.address");
         System.out.println("------------------StartingTest---------------------------");
         System.out.println("The value of store address are : "+Storeaddress);
         System.out.println("------------------End of Test---------------------------");
@@ -128,6 +128,13 @@ public class ExtractionStores {
     }
 
     //10. Get storeservices of the store where service name = Windows Store
+
+    @Test
+    public void Servicename()
+    {
+        List<HashMap<String,?>> service =response.extract().path("data.findAll{it.services.findAll{it.name=='Windows Store'}}.services.storeservices");
+        System.out.println("Storeservices is :"+service);
+    }
 
     //11. Get all the storeId of all the store
     @Test
@@ -166,14 +173,14 @@ public class ExtractionStores {
     @Test
     public void findCreateAt()
     {
-        List<HashMap<String,Object>> findcreateAt = response.extract().path("data.services.createdAt");
+        List<HashMap<String,Object>> findcreateAt = response.extract().path("data.services[5].createdAt");
         System.out.println("Find the createAt for all services :"+findcreateAt);
     }
     //16. Find the name of all services Where store name = “Fargo”
     @Test
     public void findAllServices()
     {
-        List<HashMap<String,Object>> findAllService = response.extract().path("data.findAll{it.name=='Fargo'}.services.name");
+        List<HashMap<String,Object>> findAllService = response.extract().path("data.findAll{it.name=='Sioux Falls'}.services");
         System.out.println("Find the createAt for all services :"+findAllService);
     }
     //17. Find the zip of all the store
@@ -187,19 +194,19 @@ public class ExtractionStores {
 
 
     }
-    //18. Find the zip of store name = Roseville
+    //18. Find the zip of store name = Maplewood (Roseville)
     @Test
     public void findZipOfStoreRoseville()
     {
-        List<Integer> findzipstore = response.extract().path("data.findAll{it.name=='Roseville'}.zip");
+        List<Integer> findzipstore = response.extract().path("data.findAll{it.name=='Maplewood'}.zip");
         System.out.println("Find the zip of store name :"+findzipstore);
     }
-    //19. Find the storeservices details of the service name = Magnolia Home Theater
+    //19. Find the storeservices details of the service name = Geek Squad Services (Magnolia Home Theater)
     @Test
     public void findStoreServices()
     {
-        List<HashMap<String,?>> findServices = response.extract().path("data.findAll{it.name=='Magnolia Home Theater'}.services");
-        System.out.println("Find the zip of store name :"+findServices);
+        List<HashMap<String,?>> findServices = response.extract().path("data.findAll{it.name=='Geek Squad Services'}.services");
+        System.out.println("Find the store services details :"+findServices);
     }
     //20. Find the lat of all the stores
     @Test
